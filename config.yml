@@ -75,10 +75,14 @@ AutoMessager:
     Ativar: true
     Delay: 60
     Mensagens:
-      - '&6[PsEssentials] &fOla &b&o@Player &festa mensagem e automatica.'
+      - '&e&l[&fPsEssentials&e&l] &fOla &e&o@Player &f- mensagem automatica.'
   BossBar:
-    Ativar: false
+    Ativar: true
     Delay: 15
     Tipo: 1
     Mensagens:
-      - '&b&ojogar.localhost.com.br'
+      - '&e&ojogar.localhost.com.br'
+      
+#Deseja ativar o sistema de banir itens, utilize true.
+BanirItem:
+  Ativar: true
