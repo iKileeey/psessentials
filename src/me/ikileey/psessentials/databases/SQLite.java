@@ -52,13 +52,20 @@ public class SQLite {
     	try {
     		if(!haslocalLoc(p)){
     			Class.forName(sql);
-    			final PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO loc (local, coords) VALUES ('"+p+"', '"+loc+"')");
+    			final PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO loc (local, coords) VALUES (?, ?)");
+    			pstmt2.setString(1, p);
+    			pstmt2.setString(2, loc);
     			pstmt2.execute();	
     		}else{
     			Class.forName(sql);
-    			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local = '"+p+"';");
+    			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local = ?;");
+    			pstmt.setString(1, p);
+    			
     			final ResultSet result = pstmt.executeQuery();
-    			final PreparedStatement pstmt2 = connection.prepareStatement("UPDATE loc SET coords = '"+loc+"' WHERE local = '"+p+"';");
+    			final PreparedStatement pstmt2 = connection.prepareStatement("UPDATE loc SET coords = ? WHERE local = ?;");
+    			pstmt2.setString(1, loc);
+    			pstmt2.setString(2, p);
+    			
     			pstmt2.executeUpdate();
     			
     			result.close();
@@ -75,7 +82,8 @@ public class SQLite {
     public static boolean haslocalLoc(String p){
     	try {
     		Class.forName(sql);
-			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local='"+p+"'");
+			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local = ?");
+			pstmt.setString(1, p);
 			final ResultSet resultSet = pstmt.executeQuery();
 			return resultSet.next() && resultSet.getString("local").equalsIgnoreCase(p);
 			
@@ -90,7 +98,8 @@ public class SQLite {
     public static String getLoc(String p){
     	try {
     		Class.forName(sql);
-    		final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local='"+p+"'");
+    		final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local ?");
+    		pstmt.setString(1, p);
     		final ResultSet result = pstmt.executeQuery();
     		if(result.next()){
     			return result.getString("coords");

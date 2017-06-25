@@ -18,15 +18,21 @@ public class UBanItens {
 			if (!containsItemBanido(item2)) {
 				Class.forName(sql);
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("INSERT INTO banitem (item, motivo) VALUES ('" + item2 + "', '" + motivo + "')");
+						.prepareStatement("INSERT INTO banitem (item, motivo) VALUES (?, ?)");
+				
+				pstmt2.setString(1, item2);
+				pstmt2.setString(2, motivo);
 				pstmt2.execute();
 			} else {
 				Class.forName(sql);
 				final PreparedStatement pstmt = connection
-						.prepareStatement("SELECT * FROM banitem WHERE item = '" + item2 + "';");
+						.prepareStatement("SELECT * FROM banitem WHERE item = ?;");
+				pstmt.setString(1, item2);
 				final ResultSet result = pstmt.executeQuery();
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("UPDATE banitem SET motivo = '" + motivo + "' WHERE item = '" + item2 + "';");
+						.prepareStatement("UPDATE banitem SET motivo = ? WHERE item = ?;");
+				pstmt2.setString(1, motivo);
+				pstmt2.setString(2, item2);
 				pstmt2.executeUpdate();
 
 				result.close();
@@ -45,7 +51,8 @@ public class UBanItens {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM banitem WHERE item='" + item + "'");
+					.prepareStatement("SELECT * FROM banitem WHERE item = ?");
+			pstmt.setString(1, item);
 			final ResultSet resultSet = pstmt.executeQuery();
 			return resultSet.next() && resultSet.getString("item").equalsIgnoreCase(item);
 
@@ -60,7 +67,8 @@ public class UBanItens {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt2 = connection
-					.prepareStatement("DELETE FROM banitem WHERE item='"+item+"';");
+					.prepareStatement("DELETE FROM banitem WHERE item = ?;");
+			pstmt2.setString(1, item);
 			pstmt2.execute();
 			pstmt2.close();
 		} catch (Exception e) {
@@ -89,7 +97,8 @@ public class UBanItens {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM banitem WHERE item='" + item + "'");
+					.prepareStatement("SELECT * FROM banitem WHERE item = ?");
+			pstmt.setString(1, item);
 			final ResultSet result = pstmt.executeQuery();
 			if (result.next()) {
 				return result.getString("motivo");

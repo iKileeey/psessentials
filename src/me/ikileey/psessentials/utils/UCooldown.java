@@ -17,16 +17,25 @@ public class UCooldown {
 			if (!containsRegistro(nome)) {
 				Class.forName(sql);
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("INSERT INTO cooldown (registro, tempo) VALUES ('" + nome + "', '" + l + "')");
+						.prepareStatement("INSERT INTO cooldown (registro, tempo) VALUES (?, ?)");
+				
+				pstmt2.setString(1, nome);
+				pstmt2.setLong(2, l);
 				pstmt2.execute();
 				
 			} else {
 				Class.forName(sql);
 				final PreparedStatement pstmt = connection
-						.prepareStatement("SELECT * FROM cooldown WHERE registro = '" + nome + "';");
+						.prepareStatement("SELECT * FROM cooldown WHERE registro = ?;");
+				
+				pstmt.setString(1, nome);
 				final ResultSet result = pstmt.executeQuery();
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("UPDATE cooldown SET tempo = '" + l + "' WHERE registro = '" + nome + "';");
+						.prepareStatement("UPDATE cooldown SET tempo = ? WHERE registro = ?;");
+				
+				pstmt2.setLong(1, l);
+				pstmt2.setString(2, nome);
+				
 				pstmt2.executeUpdate();
 
 				result.close();
@@ -46,7 +55,9 @@ public class UCooldown {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM cooldown WHERE registro='" + nome + "'");
+					.prepareStatement("SELECT * FROM cooldown WHERE registro = ?");
+			
+			pstmt.setString(1, nome);
 			final ResultSet resultSet = pstmt.executeQuery();
 			return resultSet.next() && resultSet.getString("registro").equalsIgnoreCase(nome);
 
@@ -62,7 +73,9 @@ public class UCooldown {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM cooldown WHERE registro='" + nome + "'");
+					.prepareStatement("SELECT * FROM cooldown WHERE registro = ?");
+			
+			pstmt.setString(1, nome);
 			final ResultSet result = pstmt.executeQuery();
 			if (result.next()) {
 				return result.getLong("tempo");
@@ -81,7 +94,7 @@ public class UCooldown {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt2 = connection
-					.prepareStatement("DELETE FROM cooldown WHERE registro='"+nome+"';");
+					.prepareStatement("DELETE FROM cooldown WHERE registro = ?;");
 			pstmt2.execute();
 			pstmt2.close();
 		} catch (Exception e) {

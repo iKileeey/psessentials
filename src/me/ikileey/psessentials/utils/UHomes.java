@@ -20,15 +20,29 @@ public class UHomes {
 			if (!containsHomeSetada(p.getName().toLowerCase(), home)) {
 				Class.forName(sql);
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("INSERT INTO homes (player, home, coords, invite) VALUES ('" + p.getName().toLowerCase() + "', '" + home + "', '"+loc+"', '"+invite+"' )");
+						.prepareStatement("INSERT INTO homes (player, home, coords, invite) VALUES (?, ?, ?, ?)");
+			
+				pstmt2.setString(1, p.getName().toLowerCase());
+				pstmt2.setString(2, home);
+				pstmt2.setString(3, loc);
+				pstmt2.setString(4, invite);
+				
+				
 				pstmt2.execute();
 			} else {
 				Class.forName(sql);
 				final PreparedStatement pstmt = connection
-						.prepareStatement("SELECT * FROM homes WHERE player = '" + p.getName().toLowerCase()+ "';");
+						.prepareStatement("SELECT * FROM homes WHERE player = ?;");
+				
+				pstmt.setString(1, p.getName().toLowerCase());
+				
 				final ResultSet result = pstmt.executeQuery();
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("UPDATE homes SET coords = '" + loc + "' WHERE home = '" + home + "';");
+						.prepareStatement("UPDATE homes SET coords = ? WHERE home = ?;");
+				
+				pstmt2.setString(1, loc);
+				pstmt2.setString(2, home);
+				
 				pstmt2.executeUpdate();
 
 				result.close();
@@ -46,15 +60,28 @@ public class UHomes {
 			if (!containsDefaultHomeSetada(p.getName().toLowerCase())) {
 				Class.forName(sql);
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("INSERT INTO homes (player, home, coords, invite) VALUES ('" + p.getName().toLowerCase() + "', '" + home + "', '"+loc+"', '"+invite+"' )");
+						.prepareStatement("INSERT INTO homes (player, home, coords, invite) VALUES (?, ?, ?, ?)");
+				
+				pstmt2.setString(1, p.getName().toLowerCase());
+				pstmt2.setString(2, home);
+				pstmt2.setString(3, loc);
+				pstmt2.setString(4, invite);
+				
 				pstmt2.execute();
 			} else {
 				Class.forName(sql);
 				final PreparedStatement pstmt = connection
-						.prepareStatement("SELECT * FROM homes WHERE player = '" + p.getName().toLowerCase()+ "';");
+						.prepareStatement("SELECT * FROM homes WHERE player = ?");
+				
+				pstmt.setString(1, p.getName().toLowerCase());
+				
 				final ResultSet result = pstmt.executeQuery();
 				final PreparedStatement pstmt2 = connection
-						.prepareStatement("UPDATE homes SET coords = '" + loc + "' WHERE home = '" + home + "';");
+						.prepareStatement("UPDATE homes SET coords = ? WHERE home = ?;");
+				
+				pstmt2.setString(1, loc);
+				pstmt2.setString(2, home);
+				
 				pstmt2.executeUpdate();
 
 				result.close();
@@ -72,7 +99,11 @@ public class UHomes {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM homes WHERE player='" + p.toLowerCase() + "' AND home='"+home+"'");
+					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
+			
+			pstmt.setString(1, p.toLowerCase());
+			pstmt.setString(2, home);
+			
 			final ResultSet resultSet = pstmt.executeQuery();
 			if(resultSet.next()){
 				return true;
@@ -91,7 +122,12 @@ public class UHomes {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM homes WHERE player='" + p + "' AND home='"+home+"'");
+					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
+			
+			pstmt.setString(1, p);
+			pstmt.setString(2, home);
+			
+			
 			final ResultSet resultSet = pstmt.executeQuery();
 			if(resultSet.next()){
 				return true;
@@ -109,7 +145,12 @@ public class UHomes {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM homes WHERE player='" + p.toLowerCase() + "' AND home='"+home+"'");
+					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
+			
+			pstmt.setString(1, p.toLowerCase());
+			pstmt.setString(2, home);
+			
+			
 			final ResultSet result = pstmt.executeQuery();
 			if (result.next()) {
 				return result.getString("coords");
@@ -127,7 +168,12 @@ public class UHomes {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM homes WHERE player='" + p.toLowerCase() + "' AND home='"+home+"'");
+					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
+			
+			pstmt.setString(1, p.toLowerCase());
+			pstmt.setString(2, home);
+			
+			
 			final ResultSet resultSet = pstmt.executeQuery();
 			return resultSet.next() && resultSet.getString("invite").equalsIgnoreCase("privado");
 
@@ -141,7 +187,10 @@ public class UHomes {
 		ArrayList<String> lista = new ArrayList<>();
 		try {
 			Class.forName(sql);
-			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM homes WHERE player='"+p.toLowerCase()+"'");
+			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM homes WHERE player = ?");
+			
+			pstmt.setString(1, p.toLowerCase());
+			
 			final ResultSet resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
 				lista.add(resultSet.getString("home"));
@@ -158,7 +207,11 @@ public class UHomes {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt2 = connection
-					.prepareStatement("DELETE FROM homes WHERE player='"+p.toLowerCase()+"' AND home='"+home+"';");
+					.prepareStatement("DELETE FROM homes WHERE player = ? AND home = ?");
+			
+			pstmt2.setString(1, p.toLowerCase());
+			pstmt2.setString(2, home);
+			
 			pstmt2.execute();
 			pstmt2.close();
 		} catch (Exception e) {
@@ -170,10 +223,15 @@ public class UHomes {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM homes WHERE player = '" + p.getName().toLowerCase()+ "';");
+					.prepareStatement("SELECT * FROM homes WHERE player = ?;");
+			
+			pstmt.setString(1, p.getName().toLowerCase());
+			
 			final ResultSet result = pstmt.executeQuery();
 			final PreparedStatement pstmt2 = connection
-					.prepareStatement("UPDATE homes SET invite = 'publico' WHERE home = '" + home + "';");
+					.prepareStatement("UPDATE homes SET invite = 'publico' WHERE home = ?;");
+			
+			pstmt2.setString(1, home);
 			pstmt2.executeUpdate();
 
 			result.close();
@@ -188,10 +246,16 @@ public class UHomes {
 		try {
 			Class.forName(sql);
 			final PreparedStatement pstmt = connection
-					.prepareStatement("SELECT * FROM homes WHERE player = '" + p.getName().toLowerCase()+ "';");
+					.prepareStatement("SELECT * FROM homes WHERE player = ?;");
+			
+			pstmt.setString(1, p.getName().toLowerCase());
+			
 			final ResultSet result = pstmt.executeQuery();
 			final PreparedStatement pstmt2 = connection
-					.prepareStatement("UPDATE homes SET invite = 'privado' WHERE home = '" + home + "';");
+					.prepareStatement("UPDATE homes SET invite = 'privado' WHERE home = ?;");
+			
+			pstmt2.setString(1, home);
+			
 			pstmt2.executeUpdate();
 
 			result.close();

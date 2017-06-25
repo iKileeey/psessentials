@@ -16,12 +16,16 @@ public class UMotd {
     	try {
     		if(getMotd().equalsIgnoreCase("noset")){
     			Class.forName(sql);
-    			final PreparedStatement pstmt = connection.prepareStatement("INSERT INTO motd (motdatual) VALUES ('"+motd+"')");
+    			final PreparedStatement pstmt = connection.prepareStatement("INSERT INTO motd (motdatual) VALUES (?)");
+    			
+    			pstmt.setString(1, motd);
+    			
     			pstmt.execute();
     			pstmt.close();    			
     		}else{
     			Class.forName(sql);
-    			final PreparedStatement pstmt = connection.prepareStatement("UPDATE motd SET motdatual='"+motd+"'");
+    			final PreparedStatement pstmt = connection.prepareStatement("UPDATE motd SET motdatual = ?");
+    			pstmt.setString(1, motd);
     			pstmt.executeUpdate();
     			pstmt.close();
     		}
