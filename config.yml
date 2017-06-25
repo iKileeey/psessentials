@@ -1,0 +1,84 @@
+################################
+#PLUGIN PsEssentials           #
+#VERSAO: v0.1                  #   
+#DESENVOLVEDOR: iKileey        #
+#CONTATO: luisgameplay         #
+################################
+
+#Para desativar utilize false, para deixar ativo utilize true.
+Server:
+  Mensagens:
+    Entrou: false
+    Saiu: false
+    Morreu: false
+  Configuracao:
+    Fome: true
+    Chuva: false
+    Noite: true
+#Forcar o jogador para ir ao spawn nesses mundos ao entrar no servidor
+  ForceSpawn:
+    Ativar: true
+    Mundos:
+      - 'eventos'
+    
+#Para utilizar a motd do plugin, utilize true
+Motd:
+  Ativar: true
+
+#Para utilizar o clearlag do plugin, utilize true
+Limpeza:
+  Ativar: true
+  Tempo: 300
+  Avisos:
+    60: '&d[Server] Limpando itens do chao em 60s.'
+    15: '&d[Server] Limpando itens do chao em 15s.'
+    0: '&d[Server] Foram limpos @Total itens do chao!'
+  Clear:
+    Mundos:
+      world:
+        clear_drops: true
+        clear_mobs: true
+      favela:
+        clear_drops: true
+        clear_mobs: false
+        
+#Delay no teleporte, tempo em segundos.
+#Para ignorar o delay mesmo ativo,
+#utilize a permissao: psessentials.teleport.nodelay
+Teleporte:
+  Delay: true
+  Tempo: 3
+
+#Para ativar as cores na placa, utilize true
+Placa:
+  Cor: true
+  
+#Deseja desativar um comando, adicione-o na lista
+DesativarComandos:
+  Mensagem: '&cVoce nao tem acesso a este comando.'
+  Comandos:
+    - '/tell console'
+    
+    
+#Para ativar uma funcao, utilize true.
+#Delay entre as mensagens em segundos.
+#Para utilizar a mensagem no bossbar, necessita do BarAPI.
+#Adicione qualquer mensagem.
+
+#@Player para retornar o nome do jogador,
+#@OnlinePlayers para retornar a quantidade de jogadores onlines,
+#@MaxPlayers para retornar a quantidade de slots do servidor.   
+
+#Tipo da bossbar: 1 = BossBar estatica, 2 = BossBar com tempo na vida decrescente.
+AutoMessager:
+  Chat:
+    Ativar: true
+    Delay: 60
+    Mensagens:
+      - '&6[PsEssentials] &fOla &b&o@Player &festa mensagem e automatica.'
+  BossBar:
+    Ativar: false
+    Delay: 15
+    Tipo: 1
+    Mensagens:
+      - '&b&ojogar.localhost.com.br'

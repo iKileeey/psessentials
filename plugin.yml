@@ -1,0 +1,92 @@
+main: me.ikileey.psessentials.Main
+version: 0.1
+name: PsEssentials
+commands:
+   gm:
+     description: altera o modo de jogo
+   tp:
+     description: teleporte
+   food:
+     description: altera o nivel de fome
+   vida:
+     aliases: [heal]
+     description: altera o nivel de vida
+   deus:
+     description: modo deus
+   speed:
+     description: altera a velocidade
+   clear:
+     description: limpa o inventario
+   echest:
+     description: enderchest
+   kill:
+     description: mata alguem
+   tpall:
+     description: teleporta todos a voce
+   tppos:
+     description: teleporta voce a uma coord
+   call:
+     description: pedido de teleporte
+   bring:
+     description: aceita o pedido de tp
+   puxar:
+     description: puxa alguem ate voce
+   spawnmob:
+     description: spawna mobs
+   mobkill:
+     description: mata os mobs
+   enchant:
+     description: encanta algo
+   enchants:
+     description: lista de enchants
+   fix:
+     description: repara os itens
+   i:
+     description: da itens
+   give:
+     description: da itens para alguem
+   time:
+     description: altera o tempo
+   invsee:
+     description: olha o inventario de um jogador
+   setspawn:
+     description: seta o spawn
+   spawn:
+     description: va ate o spawn
+   setwarp:
+     description: seta uma warp
+   warp:
+     description: va ate uma warp
+   warps:
+     description: lista de warps
+   delwarp:
+     description: deleta uma warp
+   skit:
+     description: setup dos kits
+   kit:
+     description: seleciona o kit
+   kits:
+     description: lista de kits
+   fly:
+     description: modo voar
+   sethome:
+     description: seta uma home
+   home:
+     description: va ate uma home
+   homes:
+     aliases: [listhomes]
+     description: ve a lista de homes
+   delhome:
+     description: deleta uma home
+   publica:
+     description: seta home como publica
+   particular:
+     description: seta home como particular
+   infohome:
+     description: info de uma home
+   limpeza:
+     description: comando de limpeza
+   motd:
+     description: altera a motd
+   item:
+     description: manipula o item

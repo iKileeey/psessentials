@@ -1,0 +1,38 @@
+################################
+#   CRIE COMANDOS NESSA YML    #
+################################
+
+#Comandos:
+#  teste: < nome do comando
+#    som: 1 < deseja adicionar um som? sons de 1 a 9
+#    executar: 'comando' < deseja que esse comando execute outro
+#    mensagem: < mensagem que era mandar ao player
+#      - "&cteste!"
+#caso nao queira que faca algo, e so remover.
+
+#som = adicione um som de 1 a 9.
+#executar = o jogador executa um comando.
+#mensagem = envia uma mensagem para o jogador.
+#broadcast = envia uma mensagem para o broadcast.
+#permissao = adiciona uma permissao ao comando.
+#loop = da um looping no broadcast.
+#loop/tamanho = quantidade de vezes que deve se repetir.
+#console = o console executa um comando.
+
+#@Player = retorna o nick do jogador.
+#@Onlines = retorna a quantidade de jogadores onlines.
+#@MaxPlayers = retorna a quantidade de slots.
+#@Dinheiro = retorna a quantidade de dinheiro do jogador.
+
+Comandos:
+  teste:
+    som: 1
+    executar: 'say teste @Player'
+    mensagem:
+      - "&cteste!"
+  chatclear:
+    permissao: 'comando.admin.chatclear'
+    loop:
+      Tamanho: 150
+      broadcast: ""
+    broadcast: '&aO Staffer &f@Player &alimpou o chat.'
