@@ -47,8 +47,28 @@ No PsEssentials é possivel ativar/desativar algumas funções do jogo, tais com
     - Morreu
 - Funções
     - Fome
-    - Chuva
-    - Noite
+    - Chuva 
+    - Noite 
+    
+**Criação de kits**  
+Nunca foi tão fácil e prático criar/manipular um kit, no psessentials você cria e configura um kit em menos de 10 segundos, tudo via comando. Para acessar a área de setup dos kits utilize "*/skit*", lá você poderá:
+
+- Criar um kit
+- Setar os itens
+- Setar o Cooldown
+- Deletar o kit
+
+**Sistema de home**
+No PsEssentials o sistema de homes foi baseado no MultiHome, deixando o sistema mais prático.
+
+- sethome
+- home
+- delhome
+- homes (listhomes)
+- particular
+- publica
+
+Para ir a home de um jogador utilize "*/home jogador:home*", mas está home precisa estar pública.
 # Comandos
 
  - /gm
