@@ -72,6 +72,12 @@ No PsEssentials o sistema de homes foi baseado no MultiHome, deixando o sistema 
 - infohome
 Para ir a home de um jogador utilize "*/home jogador:home*", mas está home precisa estar pública, para deixar uma home pública utilize
 "*/publica (home)*" e para dexar uma home particular utilize "*/particular (home)*".
+
+**Permissões**  
+
+As permissões são muito simples, apenas adicione o *nome do comando* na frente, e se for para executar em outro jogador utilize "*other*".
+Exemplo, para adicionar a permissão no comando */gm*, ficariá assim: `psessentials.gm`, e para adicionar gm para outro jogador "*/gm 1 (jogador)*", ficaria assim: 
+`psessentials.gm.other`  
 # Comandos
 
  - /gm
