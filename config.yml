@@ -65,6 +65,7 @@ DesativarComandos:
 #Para utilizar a mensagem no bossbar, necessita do BarAPI.
 #Adicione qualquer mensagem.
 
+
 #@Player para retornar o nome do jogador,
 #@OnlinePlayers para retornar a quantidade de jogadores onlines,
 #@MaxPlayers para retornar a quantidade de slots do servidor.   
