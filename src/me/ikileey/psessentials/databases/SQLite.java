@@ -98,7 +98,7 @@ public class SQLite {
     public static String getLoc(String p){
     	try {
     		Class.forName(sql);
-    		final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local ?");
+    		final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM loc WHERE local = ?");
     		pstmt.setString(1, p);
     		final ResultSet result = pstmt.executeQuery();
     		if(result.next()){
