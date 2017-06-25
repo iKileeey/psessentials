@@ -69,7 +69,8 @@ No PsEssentials o sistema de homes foi baseado no MultiHome, deixando o sistema 
 - homes (listhomes)
 - particular
 - publica
-- infohome
+- infohome  
+
 Para ir a home de um jogador utilize "*/home jogador:home*", mas está home precisa estar pública, para deixar uma home pública utilize
 "*/publica (home)*" e para dexar uma home particular utilize "*/particular (home)*".
 
