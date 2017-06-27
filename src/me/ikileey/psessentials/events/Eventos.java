@@ -194,7 +194,7 @@ public class Eventos implements Listener {
 	
 	@EventHandler
 	public void banItem(PlayerInteractEvent e){
-		if(Utils.banitem){
+		if(Utils.banitem && !e.getPlayer().hasPermission("psessentials.banitem.ignore")){
 			if(e.getItem() != null){
 				String item = e.getItem().getType().toString().toLowerCase();
 				if(UBanItens.containsItemBanido(item)){
@@ -211,7 +211,7 @@ public class Eventos implements Listener {
 	
 	@EventHandler
 	public void banItem2(PlayerPickupItemEvent e){
-		if(Utils.banitem){
+		if(Utils.banitem && !e.getPlayer().hasPermission("psessentials.banitem.ignore")){
 			String item = e.getItem().getItemStack().getType().toString().toLowerCase();
 			if(UBanItens.containsItemBanido(item)){
 				e.getPlayer().sendMessage(Mensagens.getMensagem("item_banido_use").replace("@Motivo", UBanItens.getItemBanidoMotivo(item)));
@@ -226,7 +226,7 @@ public class Eventos implements Listener {
 	
 	@EventHandler
 	public void banItem3(PlayerDropItemEvent e){
-		if(Utils.banitem){
+		if(Utils.banitem && !e.getPlayer().hasPermission("psessentials.banitem.ignore")){
 			String item = e.getItemDrop().getItemStack().getType().toString().toLowerCase();
 			if(UBanItens.containsItemBanido(item)){
 				e.getPlayer().sendMessage(Mensagens.getMensagem("item_banido_use").replace("@Motivo", UBanItens.getItemBanidoMotivo(item)));
@@ -241,10 +241,10 @@ public class Eventos implements Listener {
 	
 	@EventHandler
 	public void banItem4(CraftItemEvent e){
-		if(Utils.banitem){
+		Player player = (Player) e.getWhoClicked();
+		if(Utils.banitem && player.hasPermission("psessentials.banitem.ignore")){
 			String item = e.getRecipe().getResult().getType().toString().toLowerCase();
 			if(UBanItens.containsItemBanido(item)){
-				Player player = (Player) e.getWhoClicked();
 				player.sendMessage(Mensagens.getMensagem("item_banido_use").replace("@Motivo", UBanItens.getItemBanidoMotivo(item)));
 				e.setCancelled(true);
 			}else{

@@ -138,6 +138,9 @@ public class Kits implements CommandExecutor {
 						p.sendMessage("§cUse: /kit <kit>");
 					}
 				}
+				if(args.length == 0){
+					p.sendMessage("§cUse: /kit <kit>.");
+				}
 			}else{
 				if(args.length == 2){
 					Player p1 = Bukkit.getPlayer(args[1]);
