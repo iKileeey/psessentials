@@ -109,7 +109,6 @@ public class SQLite {
 		} catch (Exception e) {
 			System.out.println("ERRO in getLoc: "+e.getMessage().toString());
 		}
-    	
 		return "erro";
 		
     	
