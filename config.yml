@@ -5,6 +5,14 @@
 #CONTATO: luisgameplay         #
 ################################
 
+#Para usar o mysql, utilize true, e preencha as informacoes.
+MySQL:
+  Ativar: false
+  Usuario: 'root'
+  Senha: ''
+  Database: 'psessentials'
+  Host: 'localhost'
+ 
 #Para desativar utilize false, para deixar ativo utilize true.
 Server:
   Mensagens:
