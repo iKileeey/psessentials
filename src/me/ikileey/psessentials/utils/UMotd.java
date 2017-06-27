@@ -4,18 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import me.ikileey.psessentials.databases.SQLite;
+import me.ikileey.psessentials.databases.Database;
 
 public class UMotd {
 
-	public static Connection connection = SQLite.connection;
-
-	public static String sql = "org.sqlite.JDBC";
+	public static Connection connection = Database.connection;
 
 	public static void setMotd(String motd){
     	try {
     		if(getMotd().equalsIgnoreCase("noset")){
-    			Class.forName(sql);
+    			Class.forName(Database.sql);
     			final PreparedStatement pstmt = connection.prepareStatement("INSERT INTO motd (motdatual) VALUES (?)");
     			
     			pstmt.setString(1, motd);
@@ -23,7 +21,7 @@ public class UMotd {
     			pstmt.execute();
     			pstmt.close();    			
     		}else{
-    			Class.forName(sql);
+    			Class.forName(Database.sql);
     			final PreparedStatement pstmt = connection.prepareStatement("UPDATE motd SET motdatual = ?");
     			pstmt.setString(1, motd);
     			pstmt.executeUpdate();
@@ -36,7 +34,7 @@ public class UMotd {
     
     public static String getMotd(){
     	try {
-    		Class.forName(sql);
+    		Class.forName(Database.sql);
     		final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM motd");
     		final ResultSet result = pstmt.executeQuery();
     		if(result.next()){

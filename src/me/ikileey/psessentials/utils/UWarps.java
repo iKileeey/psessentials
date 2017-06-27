@@ -5,18 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import me.ikileey.psessentials.databases.SQLite;
+import me.ikileey.psessentials.databases.Database;
 
 public class UWarps {
 
-	public static Connection connection = SQLite.connection;
-
-	public static String sql = "org.sqlite.JDBC";
+	public static Connection connection = Database.connection;
 
 	public static void saveWarp(String nome, String loc) {
 		try {
 			if (!containsWarp(nome)) {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt2 = connection
 						.prepareStatement("INSERT INTO warps (warp, coords) VALUES (?, ?)");
 				
@@ -25,7 +23,7 @@ public class UWarps {
 				
 				pstmt2.execute();
 			} else {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt = connection
 						.prepareStatement("SELECT * FROM warps WHERE warp = ?;");
 				
@@ -54,7 +52,7 @@ public class UWarps {
 
 	public static boolean containsWarp(String nome) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM warps WHERE warp = ?");
 			
@@ -71,7 +69,7 @@ public class UWarps {
 	
 	public static void deleteWarp(String nome){
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt2 = connection
 					.prepareStatement("DELETE FROM warps WHERE warp = ?;");
 			
@@ -87,7 +85,7 @@ public class UWarps {
 	public static ArrayList<String> getWarps() {
 		ArrayList<String> lista = new ArrayList<>();
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM warps");
 			final ResultSet resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
@@ -103,7 +101,7 @@ public class UWarps {
 
 	public static String getWarp(String nome) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM warps WHERE warp = ?");
 			

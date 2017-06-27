@@ -5,28 +5,35 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.bukkit.Bukkit;
 
 import me.ikileey.psessentials.Main;
+import me.ikileey.psessentials.utils.Utils;
 
-public class SQLite {
+public class Database {
 
 	public static Connection connection;
     
-    public static String sql = "org.sqlite.JDBC";
+    public static String sql;
     
-    public static void setConnection(){
+    public static void setConnection() throws SQLException{
     	try {
-    		Bukkit.getConsoleSender().sendMessage("[PsEssentials] Conectando no SQLite..");
-    		Class.forName("org.sqlite.JDBC");
-    		connection = DriverManager.getConnection("jdbc:sqlite:" + Main.pl.getDataFolder().getAbsolutePath() + File.separator + "database.db");
+    		if(Utils.mySql){
+    			System.out.println("[PsEssentials] Conectando no MySQL.");
+    			Class.forName("com.mysql.jdbc.Driver");
+        		connection = DriverManager.getConnection("jdbc:mysql://" + Utils.mysqlhost + "/" + Utils.mysqldbase, Utils.mysqluser, Utils.mysqlpass);
+        		sql = "com.mysql.jdbc.Driver";
+        	}else{
+        		System.out.println("[PsEssentials] Conectando no SQLite.");
+        		Class.forName("org.sqlite.JDBC");
+        		connection = DriverManager.getConnection("jdbc:sqlite:" + Main.pl.getDataFolder().getAbsolutePath() + File.separator + "database.db");    
+        		sql = "org.sqlite.JDBC";
+        	}			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-    	catch (Exception e2) {
-    		e2.printStackTrace();
 		}
     }
     
@@ -35,10 +42,10 @@ public class SQLite {
     	try {
     		setConnection();
 			final Statement stmt = connection.createStatement();
-			stmt.execute("CREATE TABLE IF NOT EXISTS loc (local VARCHAR(25), coords VARCHAR(40))");
-			stmt.execute("CREATE TABLE IF NOT EXISTS warps (warp VARCHAR(25), coords VARCHAR(40))");
-			stmt.execute("CREATE TABLE IF NOT EXISTS cooldown (registro VARCHAR(25), tempo LONG)");
-			stmt.execute("CREATE TABLE IF NOT EXISTS homes (player VARCHAR(25), home VARCHAR(40), coords VARCHAR(40), invite VARCHAR(40))");
+			stmt.execute("CREATE TABLE IF NOT EXISTS loc (local VARCHAR(255), coords VARCHAR(255))");
+			stmt.execute("CREATE TABLE IF NOT EXISTS warps (warp VARCHAR(255), coords VARCHAR(255))");
+			stmt.execute("CREATE TABLE IF NOT EXISTS cooldown (registro VARCHAR(255), tempo LONG)");
+			stmt.execute("CREATE TABLE IF NOT EXISTS homes (player VARCHAR(255), home VARCHAR(255), coords VARCHAR(255), invite VARCHAR(255))");
 			stmt.execute("CREATE TABLE IF NOT EXISTS motd (motdatual varchar(255))");
 			stmt.execute("CREATE TABLE IF NOT EXISTS banitem (item VARCHAR(255), motivo VARCHAR(255))");
 			stmt.close();

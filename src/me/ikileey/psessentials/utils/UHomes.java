@@ -7,18 +7,16 @@ import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 
-import me.ikileey.psessentials.databases.SQLite;
+import me.ikileey.psessentials.databases.Database;
 
 public class UHomes {
 
-	public static Connection connection = SQLite.connection;
-
-	public static String sql = "org.sqlite.JDBC";
+	public static Connection connection = Database.connection;
 
 	public static void setHome(Player p, String home, String loc, String invite) {
 		try {
 			if (!containsHomeSetada(p.getName().toLowerCase(), home)) {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt2 = connection
 						.prepareStatement("INSERT INTO homes (player, home, coords, invite) VALUES (?, ?, ?, ?)");
 			
@@ -30,7 +28,7 @@ public class UHomes {
 				
 				pstmt2.execute();
 			} else {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt = connection
 						.prepareStatement("SELECT * FROM homes WHERE player = ?;");
 				
@@ -58,7 +56,7 @@ public class UHomes {
 	public static void setDefaultHome(Player p, String home, String loc, String invite) {
 		try {
 			if (!containsDefaultHomeSetada(p.getName().toLowerCase())) {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt2 = connection
 						.prepareStatement("INSERT INTO homes (player, home, coords, invite) VALUES (?, ?, ?, ?)");
 				
@@ -69,7 +67,7 @@ public class UHomes {
 				
 				pstmt2.execute();
 			} else {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt = connection
 						.prepareStatement("SELECT * FROM homes WHERE player = ?");
 				
@@ -97,7 +95,7 @@ public class UHomes {
 	public static boolean containsDefaultHomeSetada(String p) {
 		String home = "(Padrao)";
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
 			
@@ -120,7 +118,7 @@ public class UHomes {
 	
 	public static boolean containsHomeSetada(String p, String home) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
 			
@@ -143,7 +141,7 @@ public class UHomes {
 	
 	public static String getHomeLocation(String p, String home) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
 			
@@ -166,7 +164,7 @@ public class UHomes {
 	
 	public static boolean isPrivate(String p, String home){
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM homes WHERE player = ? AND home = ?");
 			
@@ -186,7 +184,7 @@ public class UHomes {
 	public static ArrayList<String> getHomesOfPlayer(String p) {
 		ArrayList<String> lista = new ArrayList<>();
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM homes WHERE player = ?");
 			
 			pstmt.setString(1, p.toLowerCase());
@@ -205,7 +203,7 @@ public class UHomes {
 	
 	public static void deleteHomeOfPlayer(String p, String home){
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt2 = connection
 					.prepareStatement("DELETE FROM homes WHERE player = ? AND home = ?");
 			
@@ -221,7 +219,7 @@ public class UHomes {
 	
 	public static void setHomeToPublica(Player p, String home){
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM homes WHERE player = ?;");
 			
@@ -244,7 +242,7 @@ public class UHomes {
 	
 	public static void setHomeToPrivado(Player p, String home){
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM homes WHERE player = ?;");
 			

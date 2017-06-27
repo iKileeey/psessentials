@@ -5,18 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import me.ikileey.psessentials.databases.SQLite;
+import me.ikileey.psessentials.databases.Database;
 
 public class UBanItens {
 
-	public static Connection connection = SQLite.connection;
-
-	public static String sql = "org.sqlite.JDBC";
+	public static Connection connection = Database.connection;
 
 	public static void saveItem(String item2, String motivo) {
 		try {
 			if (!containsItemBanido(item2)) {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt2 = connection
 						.prepareStatement("INSERT INTO banitem (item, motivo) VALUES (?, ?)");
 				
@@ -24,7 +22,7 @@ public class UBanItens {
 				pstmt2.setString(2, motivo);
 				pstmt2.execute();
 			} else {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt = connection
 						.prepareStatement("SELECT * FROM banitem WHERE item = ?;");
 				pstmt.setString(1, item2);
@@ -49,7 +47,7 @@ public class UBanItens {
 
 	public static boolean containsItemBanido(String item) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM banitem WHERE item = ?");
 			pstmt.setString(1, item);
@@ -65,7 +63,7 @@ public class UBanItens {
 	
 	public static void removeBanOfItem(String item){
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt2 = connection
 					.prepareStatement("DELETE FROM banitem WHERE item = ?;");
 			pstmt2.setString(1, item);
@@ -79,7 +77,7 @@ public class UBanItens {
 	public static ArrayList<String> getItens() {
 		ArrayList<String> lista = new ArrayList<>();
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM banitem");
 			final ResultSet resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
@@ -95,7 +93,7 @@ public class UBanItens {
 
 	public static String getItemBanidoMotivo(String item) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM banitem WHERE item = ?");
 			pstmt.setString(1, item);

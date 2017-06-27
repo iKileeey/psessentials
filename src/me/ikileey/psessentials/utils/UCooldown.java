@@ -4,18 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import me.ikileey.psessentials.databases.SQLite;
+import me.ikileey.psessentials.databases.Database;
 
 public class UCooldown {
 
-	public static Connection connection = SQLite.connection;
-
-	public static String sql = "org.sqlite.JDBC";
+	public static Connection connection = Database.connection;
 
 	public static void setDelay(String nome, Long l) {
 		try {
 			if (!containsRegistro(nome)) {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt2 = connection
 						.prepareStatement("INSERT INTO cooldown (registro, tempo) VALUES (?, ?)");
 				
@@ -24,7 +22,7 @@ public class UCooldown {
 				pstmt2.execute();
 				
 			} else {
-				Class.forName(sql);
+				Class.forName(Database.sql);
 				final PreparedStatement pstmt = connection
 						.prepareStatement("SELECT * FROM cooldown WHERE registro = ?;");
 				
@@ -53,7 +51,7 @@ public class UCooldown {
 
 	public static boolean containsRegistro(String nome) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM cooldown WHERE registro = ?");
 			
@@ -71,7 +69,7 @@ public class UCooldown {
 
 	public static Long getRegistro(String nome) {
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt = connection
 					.prepareStatement("SELECT * FROM cooldown WHERE registro = ?");
 			
@@ -92,7 +90,7 @@ public class UCooldown {
 	
 	public static void deleteRegistro(String nome){
 		try {
-			Class.forName(sql);
+			Class.forName(Database.sql);
 			final PreparedStatement pstmt2 = connection
 					.prepareStatement("DELETE FROM cooldown WHERE registro = ?;");
 			pstmt2.execute();

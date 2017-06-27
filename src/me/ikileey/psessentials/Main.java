@@ -27,7 +27,7 @@ import me.ikileey.psessentials.commands.Spawnmob;
 import me.ikileey.psessentials.commands.Speed;
 import me.ikileey.psessentials.commands.Time;
 import me.ikileey.psessentials.createcmds.CreateCmds;
-import me.ikileey.psessentials.databases.SQLite;
+import me.ikileey.psessentials.databases.Database;
 import me.ikileey.psessentials.events.Eventos;
 import me.ikileey.psessentials.homes.Homes;
 import me.ikileey.psessentials.kits.Cooldown;
@@ -132,7 +132,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		try {
-			SQLite.connection.close();
+			Database.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -154,6 +154,6 @@ public class Main extends JavaPlugin {
             }
             Bukkit.getConsoleSender().sendMessage("[PsEssentials] Database.db criada com sucesso!");
         }
-        SQLite.startDatabase();
+        Database.startDatabase();
 	}
 }

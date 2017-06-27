@@ -15,8 +15,9 @@ public class Utils {
 	private static HashMap<String, String> call = new HashMap<>();
 	public static ArrayList<Player> c = new ArrayList<>();
 	
-	public static boolean entrou, saiu, morreu, fome, chuva, noite, motd, clearlag, delaytp, forcespawn, limpeza, corplaca, automchat, autombar, banitem, protecao, contemPex;
+	public static boolean entrou, saiu, morreu, fome, chuva, noite, motd, clearlag, delaytp, forcespawn, limpeza, corplaca, automchat, autombar, banitem, protecao, contemPex, mySql;
 	public static int tempodelaytp;
+	public static String mysqluser, mysqlpass, mysqldbase, mysqlhost;
 	
 	public static void setup(){
 		entrou = Main.pl.getConfig().getBoolean("Server.Mensagens.Entrou");
@@ -36,6 +37,10 @@ public class Utils {
 	    autombar = Main.pl.getConfig().getBoolean("AutoMessager.BossBar.Ativar");
 	    banitem = Main.pl.getConfig().getBoolean("BanirItem.Ativar");
 	    protecao = Main.pl.getConfig().getBoolean("Protecao.AntiForceOP");
+	    mySql = Main.pl.getConfig().getBoolean("MySQL.Ativar");
+	    if(mySql){
+	    	setupMySQL();
+	    }
 	    if(containsPermissionsEx()){
 	    	contemPex = true;
 	    }else{
@@ -87,7 +92,14 @@ public class Utils {
 			return false;
 		}
 	
-}
+	}
+	
+	public static void setupMySQL(){
+		mysqluser = Main.pl.getConfig().getString("MySQL.Usuario");
+		mysqlpass = Main.pl.getConfig().getString("MySQL.Senha");
+		mysqldbase = Main.pl.getConfig().getString("MySQL.Database");
+		mysqlhost = Main.pl.getConfig().getString("MySQL.Host");
+	}
 	
 	   public static boolean isInventoryEmpty(final Player p) {
 	        ItemStack[] contents;

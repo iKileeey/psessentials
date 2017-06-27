@@ -6,7 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import me.ikileey.psessentials.databases.SQLite;
+import me.ikileey.psessentials.databases.Database;
 
 public class ULoc {
 
@@ -18,11 +18,11 @@ public class ULoc {
 		  final float yaw = (float)p.getLocation().getYaw();
 		  final float pitch = (float)p.getLocation().getPitch();
 		  String loc = w+";"+x+";"+y+";"+z+";"+yaw+";"+pitch;
-		  SQLite.saveLoc(local, loc);
+		  Database.saveLoc(local, loc);
 	}
 	
 	public static Location getLocation(String local){
-		String[] lc = SQLite.getLoc(local).split(";");
+		String[] lc = Database.getLoc(local).split(";");
 	
 		final World w = Bukkit.getWorld(lc[0]);
 		final double x = Double.parseDouble(lc[1]);
