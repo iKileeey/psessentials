@@ -15,7 +15,7 @@ public class Utils {
 	private static HashMap<String, String> call = new HashMap<>();
 	public static ArrayList<Player> c = new ArrayList<>();
 	
-	public static boolean entrou, saiu, morreu, fome, chuva, noite, motd, clearlag, delaytp, forcespawn, limpeza, corplaca, automchat, autombar, banitem;
+	public static boolean entrou, saiu, morreu, fome, chuva, noite, motd, clearlag, delaytp, forcespawn, limpeza, corplaca, automchat, autombar, banitem, protecao, contemPex;
 	public static int tempodelaytp;
 	
 	public static void setup(){
@@ -35,6 +35,12 @@ public class Utils {
 	    automchat = Main.pl.getConfig().getBoolean("AutoMessager.Chat.Ativar");
 	    autombar = Main.pl.getConfig().getBoolean("AutoMessager.BossBar.Ativar");
 	    banitem = Main.pl.getConfig().getBoolean("BanirItem.Ativar");
+	    protecao = Main.pl.getConfig().getBoolean("Protecao.AntiForceOP");
+	    if(containsPermissionsEx()){
+	    	contemPex = true;
+	    }else{
+	    	contemPex = false;
+	    }
 	}
 	
 	public static void setGod(Player p, boolean b){
@@ -74,6 +80,15 @@ public class Utils {
 		return call;
 	}
 	
+	public static boolean containsPermissionsEx(){
+		if(Main.pl.getServer().getPluginManager().getPlugin("PermissionsEx") != null){
+			return true;
+		}else{
+			return false;
+		}
+	
+}
+	
 	   public static boolean isInventoryEmpty(final Player p) {
 	        ItemStack[] contents;
 	        for (int length = (contents = p.getInventory().getContents()).length, j = 0; j < length; ++j) {
@@ -91,5 +106,7 @@ public class Utils {
 	        }
 	        return true;
 	    }
+	   
+	   
 	
 }

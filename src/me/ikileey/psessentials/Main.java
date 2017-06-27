@@ -103,7 +103,7 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 		Utils.setup();
 		if(VaultAPI.setupEconomy()){
-			System.out.println("[PsEssentials] Plugin 'vault' encontrado.");
+			System.out.println("[PsEssentials] Plugin 'Economia' encontrado.");
 		}
 		if(Utils.autombar){
 			if(getServer().getPluginManager().getPlugin("BarAPI") == null){

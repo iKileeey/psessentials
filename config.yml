@@ -65,7 +65,6 @@ DesativarComandos:
 #Para utilizar a mensagem no bossbar, necessita do BarAPI.
 #Adicione qualquer mensagem.
 
-
 #@Player para retornar o nome do jogador,
 #@OnlinePlayers para retornar a quantidade de jogadores onlines,
 #@MaxPlayers para retornar a quantidade de slots do servidor.   
@@ -87,3 +86,10 @@ AutoMessager:
 #Deseja ativar o sistema de banir itens, utilize true.
 BanirItem:
   Ativar: true
+  
+#Deseja ativar o sistema de protecao contra players mal-intencionados, utilize true
+#Caso os staffers forem mais que 1, utilize uma / para separar, exemplo: 'player1/player2/player3'
+Protecao:
+  AntiForceOP: true
+  Staffers-OP: 'iKileey'
+  Executar: 'ban @Player &cPsEssentials: Forceop detectado.'

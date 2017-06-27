@@ -1,5 +1,8 @@
 package me.ikileey.psessentials.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -30,6 +33,8 @@ import me.ikileey.psessentials.utils.ULoc;
 import me.ikileey.psessentials.utils.UMotd;
 import me.ikileey.psessentials.utils.Utils;
 import me.ikileey.psessentials.vault.VaultAPI;
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Eventos implements Listener {
 
@@ -255,5 +260,42 @@ public class Eventos implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void protecaoOP(PlayerCommandPreprocessEvent e){
+		if(Utils.protecao){
+			Player p = e.getPlayer();
+			if(p.isOp() || p.hasPermission("*")){
+				String ops = Main.pl.getConfig().getString("Protecao.Staffers-OP");
+				if(ops.contains("/")){
+					String[] op = ops.split("/");
+					List<String> playersOP = new ArrayList<>();
+					for (int i = 0; i < op.length; i++) {
+						playersOP.add(op[i]);
+					}
+					if(!playersOP.contains(p.getName())){
+						String cmd = Main.pl.getConfig().getString("Protecao.Executar");
+						p.setOp(false);
+						if(Utils.contemPex){
+							PermissionUser user = PermissionsEx.getUser(p);
+							user.removePermission("*");
+						}
+						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("@Player", p.getName()));
+					}				
+				}else{
+					if(!p.getName().equalsIgnoreCase(ops)){
+						String cmd = Main.pl.getConfig().getString("Protecao.Executar");
+						p.setOp(false);
+						if(Utils.contemPex){
+							PermissionUser user = PermissionsEx.getUser(p);
+							user.removePermission("*");
+						}
+						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("@Player", p.getName()));
+					}
+				}
+			}			
+		}else{
+			return;
+		}
+	}
 	
 }
