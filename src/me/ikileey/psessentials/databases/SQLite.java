@@ -94,7 +94,6 @@ public class SQLite {
     	
     }
 
-
     public static String getLoc(String p){
     	try {
     		Class.forName(sql);
