@@ -98,6 +98,6 @@ BanirItem:
 #Deseja ativar o sistema de protecao contra players mal-intencionados, utilize true
 #Caso os staffers forem mais que 1, utilize uma / para separar, exemplo: 'player1/player2/player3'
 Protecao:
-  AntiForceOP: true
-  Staffers-OP: 'iKileey'
+  AntiForceOP: false
+  Staffers-OP: 'nick-staff/nick-staff2'
   Executar: 'ban @Player &cPsEssentials: Forceop detectado.'
