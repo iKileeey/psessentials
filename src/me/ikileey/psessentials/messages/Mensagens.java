@@ -34,6 +34,15 @@ public class Mensagens {
         }
         catch (Exception ex2) {}
         
+        try {
+            final File file3 = new File(Main.pl.getDataFolder(), "mensagens-com-acentos.txt");
+            
+            if (!file3.exists()) {
+                Main.pl.saveResource("mensagens-com-acentos.txt", false);
+            }
+        }
+        catch (Exception ex2) {}
+        
 		final File f_msgs = new File(Main.pl.getDataFolder(), "mensagens.yml");
         final YamlConfiguration msgs = YamlConfiguration.loadConfiguration(f_msgs);
         
