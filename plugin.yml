@@ -90,3 +90,5 @@ commands:
      description: altera a motd
    item:
      description: manipula o item
+   hat:
+     description: chapeu

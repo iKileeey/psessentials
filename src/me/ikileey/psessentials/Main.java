@@ -18,6 +18,7 @@ import me.ikileey.psessentials.commands.Food;
 import me.ikileey.psessentials.commands.Gamemode;
 import me.ikileey.psessentials.commands.Give;
 import me.ikileey.psessentials.commands.God;
+import me.ikileey.psessentials.commands.Hat;
 import me.ikileey.psessentials.commands.Heal;
 import me.ikileey.psessentials.commands.Invsee;
 import me.ikileey.psessentials.commands.Kill;
@@ -100,6 +101,7 @@ public class Main extends JavaPlugin {
 		getCommand("limpeza").setExecutor(new Comandos());
 		getCommand("motd").setExecutor(new Motd());
 		getCommand("item").setExecutor(new BanItem());
+		getCommand("hat").setExecutor(new Hat());
 		saveDefaultConfig();
 		Utils.setup();
 		if(VaultAPI.setupEconomy()){
