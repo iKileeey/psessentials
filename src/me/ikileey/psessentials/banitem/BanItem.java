@@ -30,7 +30,8 @@ public class BanItem implements CommandExecutor {
 					}
 					String msg = sb.toString();
 					if(p.getItemInHand().getType() != Material.AIR){
-						String item = p.getItemInHand().getType().toString().toLowerCase();
+						
+						String item = p.getItemInHand().getData().toString().toLowerCase();
 						if(!UBanItens.containsItemBanido(item)){
 							UBanItens.saveItem(item, msg.substring(0, msg.length() - 1));
 							p.sendMessage(Mensagens.getMensagem("item_banido").replace("@Item", item).replace("@Motivo", msg.substring(0, msg.length() - 1)));
@@ -47,7 +48,7 @@ public class BanItem implements CommandExecutor {
 						return false;
 					}
 					if(p.getItemInHand().getType() != Material.AIR){
-						String item = p.getItemInHand().getType().toString().toLowerCase();
+						String item = p.getItemInHand().getData().toString().toLowerCase();
 						if(UBanItens.containsItemBanido(item)){
 							UBanItens.removeBanOfItem(item);
 							p.sendMessage(Mensagens.getMensagem("item_desbanido").replace("@Item", item));
@@ -62,17 +63,20 @@ public class BanItem implements CommandExecutor {
 						return false;
 					}
 					if(p.getItemInHand().getType() != Material.AIR){
-						String item = p.getItemInHand().getType().toString().toLowerCase();
-
-						p.sendMessage("§cInformações do item:");
+						String item = p.getItemInHand().getData().toString().toLowerCase();
+						p.sendMessage("§dInformações do item:");
 						p.sendMessage("");
-						p.sendMessage("§c Item: §f"+item);
-						p.sendMessage(" §cID: §f"+p.getItemInHand().getType().getId());
-						if(UBanItens.containsItemBanido(item)){
-							p.sendMessage("§c Status: §festá banido.");
-							p.sendMessage("§c Motivo: §f"+UBanItens.getItemBanidoMotivo(item));
+						p.sendMessage("§d Item: §f"+item);
+						if(p.getItemInHand().getDurability() >= 1){
+							p.sendMessage(" §dID: §f"+p.getItemInHand().getType().getId()+":"+p.getItemInHand().getDurability());							
 						}else{
-							p.sendMessage("§c Status: §fNão está banido.");
+							p.sendMessage(" §dID: §f"+p.getItemInHand().getType().getId());
+						}
+						if(UBanItens.containsItemBanido(item)){
+							p.sendMessage("§d Status: §festá banido.");
+							p.sendMessage("§d Motivo: §f"+UBanItens.getItemBanidoMotivo(item));
+						}else{
+							p.sendMessage("§d Status: §fNão está banido.");
 						}
 					}else{
 						p.sendMessage(Mensagens.getErro("erro1"));

@@ -15,8 +15,8 @@ public class Utils {
 	private static HashMap<String, String> call = new HashMap<>();
 	public static ArrayList<Player> c = new ArrayList<>();
 	
-	public static boolean entrou, saiu, morreu, fome, chuva, noite, motd, clearlag, delaytp, forcespawn, limpeza, corplaca, automchat, autombar, banitem, protecao, contemPex, mySql;
-	public static int tempodelaytp;
+	public static boolean entrou, saiu, morreu, fome, chuva, noite, motd, clearlag, delaytp, forcespawn, limpeza, corplaca, automchat, autombar, banitem, protecao, contemPex, mySql, protectVoid;
+	public static int tempodelaytp, protectVoidTipo;
 	public static String mysqluser, mysqlpass, mysqldbase, mysqlhost;
 	
 	public static void setup(){
@@ -38,6 +38,8 @@ public class Utils {
 	    banitem = Main.pl.getConfig().getBoolean("BanirItem.Ativar");
 	    protecao = Main.pl.getConfig().getBoolean("Protecao.AntiForceOP");
 	    mySql = Main.pl.getConfig().getBoolean("MySQL.Ativar");
+	    protectVoid = Main.pl.getConfig().getBoolean("Protecao-Void.Ativar");
+	    protectVoidTipo = Main.pl.getConfig().getInt("Protecao-Void.Teleportar");
 	    if(mySql){
 	    	setupMySQL();
 	    }

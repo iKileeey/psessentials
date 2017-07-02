@@ -14,6 +14,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -51,6 +52,26 @@ public class Eventos implements Listener {
 			Player p = (Player) e.getEntity();
 			if(Utils.hasGod(p)){
 				e.setCancelled(true);
+			}
+			if(e.getCause() == DamageCause.VOID){
+				if(Utils.protectVoid){
+					switch (Utils.protectVoidTipo) {
+					case 1:
+						e.setDamage(0);
+						p.teleport(p.getWorld().getSpawnLocation());
+						e.setCancelled(true);
+						break;
+					case 2:
+						e.setDamage(0);
+						p.teleport(ULoc.getLocation("spawn"));
+						e.setCancelled(true);
+						break;
+					default:
+						break;
+					}
+				}else{
+					return;
+				}
 			}
 		}
 	}
@@ -201,7 +222,7 @@ public class Eventos implements Listener {
 	public void banItem(PlayerInteractEvent e){
 		if(Utils.banitem && !e.getPlayer().hasPermission("psessentials.banitem.ignore")){
 			if(e.getItem() != null){
-				String item = e.getItem().getType().toString().toLowerCase();
+				String item = e.getItem().getData().toString().toLowerCase();
 				if(UBanItens.containsItemBanido(item)){
 					e.getPlayer().sendMessage(Mensagens.getMensagem("item_banido_use").replace("@Motivo", UBanItens.getItemBanidoMotivo(item)));
 					e.setCancelled(true);
@@ -217,7 +238,7 @@ public class Eventos implements Listener {
 	@EventHandler
 	public void banItem2(PlayerPickupItemEvent e){
 		if(Utils.banitem && !e.getPlayer().hasPermission("psessentials.banitem.ignore")){
-			String item = e.getItem().getItemStack().getType().toString().toLowerCase();
+			String item = e.getItem().getItemStack().getData().toString().toLowerCase();
 			if(UBanItens.containsItemBanido(item)){
 				e.getPlayer().sendMessage(Mensagens.getMensagem("item_banido_use").replace("@Motivo", UBanItens.getItemBanidoMotivo(item)));
 				e.setCancelled(true);
@@ -232,7 +253,7 @@ public class Eventos implements Listener {
 	@EventHandler
 	public void banItem3(PlayerDropItemEvent e){
 		if(Utils.banitem && !e.getPlayer().hasPermission("psessentials.banitem.ignore")){
-			String item = e.getItemDrop().getItemStack().getType().toString().toLowerCase();
+			String item = e.getItemDrop().getItemStack().getData().toString().toLowerCase();
 			if(UBanItens.containsItemBanido(item)){
 				e.getPlayer().sendMessage(Mensagens.getMensagem("item_banido_use").replace("@Motivo", UBanItens.getItemBanidoMotivo(item)));
 				e.setCancelled(true);
@@ -248,7 +269,7 @@ public class Eventos implements Listener {
 	public void banItem4(CraftItemEvent e){
 		Player player = (Player) e.getWhoClicked();
 		if(Utils.banitem && player.hasPermission("psessentials.banitem.ignore")){
-			String item = e.getRecipe().getResult().getType().toString().toLowerCase();
+			String item = e.getRecipe().getResult().getData().toString().toLowerCase();
 			if(UBanItens.containsItemBanido(item)){
 				player.sendMessage(Mensagens.getMensagem("item_banido_use").replace("@Motivo", UBanItens.getItemBanidoMotivo(item)));
 				e.setCancelled(true);
